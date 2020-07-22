@@ -4,7 +4,7 @@ description: Deploy basic java application server
 #home: https://github.com/yahavb
 icon: http://tomcat.apache.org/res/images/tomcat.png
 maintainers:
-- email: hive@cj.net
-  name: hive
-name: hive-web
+- email: test@cj.net
+  name: test
+name: petclinic
 version: 0.0.1
