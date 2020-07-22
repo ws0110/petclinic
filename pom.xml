@@ -337,7 +337,7 @@
                 </configuration>
             </plugin>
  -->
-            <plugin>
+           <!--  <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>${maven-assembly-plugin.version}</version>
@@ -347,7 +347,7 @@
                     </descriptorRefs>
                 </configuration>
             </plugin>
-
+ -->
             <!-- <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -378,7 +378,7 @@
                 </configuration>
             </plugin>
 
-            <!--  <plugin>
+            <plugin>
                 <groupId>ro.isdc.wro4j</groupId>
                 <artifactId>wro4j-maven-plugin</artifactId>
                 <version>${wro4j.version}</version>
@@ -403,57 +403,20 @@
                         <artifactId>bootstrap</artifactId>
                         <version>${webjars-bootstrap.version}</version>
                     </dependency>
-                    Required for Java 9 and above
-                    <dependency>
+                    <!-- Required for Java 9 and above -->
+                    <!-- <dependency>
                         <groupId>org.mockito</groupId>
                         <artifactId>mockito-core</artifactId>
                         <version>${mockito.version}</version>
-                    </dependency>
+                    </dependency> -->
                 </dependencies>
-            </plugin> -->
+            </plugin>
 
             <!-- <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty-maven-plugin.version}</version>
             </plugin> -->
-<!-- 
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>${docker.jib-maven-plugin.version}</version>
-                <configuration>
-	                <from>
-			            <image>tomcat:9.0.30-jdk8-openjdk</image>
-			        </from>
-                    <to>
-                        <image>docker.io/ws0110/petclinic</image>
-                        <auth>
-			                <username>ws0110</username>
-			                <password>ws471567!</password>
-			            </auth>
-                        <tags>
-                            <tag>helm</tag>
-                        </tags>
-                    </to>
-                    <container>
-                    	<appRoot>/usr/local/tomcat/webapps/ROOT</appRoot>
-						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-				      	<ports> 
-				      		<port>8080</port> 
-				      	</ports>
-			        </container>
-                </configuration>
-               <executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>build</goal>
-						</goals>
-					</execution>
-				</executions>
-            </plugin>
- -->
         </plugins>
     </build>
 
