@@ -1,0 +1,27 @@
+FROM tomcat:7-jdk8-openjdk
+
+MAINTAINER SmartHaccp <smarthaccp@cj.net>
+
+# 타임존 설정
+RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
+    && echo "Asia/Seoul" > /etc/timezone \
+    && mkdir /usr/local/tomcat/upload
+
+# Tomcat 로그 처리
+ARG TOMCAT_LOGDAY=60
+
+WORKDIR /usr/local/tomcat/conf
+# Tomcat Log 설정 추가
+RUN sed -i '/1catalina.org.apache.juli.FileHandler.encoding = UTF-8/i 1catalina.org.apache.juli.FileHandler.maxDays = '${TOMCAT_LOGDAY} logging.properties \
+    && sed -i '/2localhost.org.apache.juli.FileHandler.encoding = UTF-8/i 2localhost.org.apache.juli.FileHandler.maxDays = '${TOMCAT_LOGDAY} logging.properties \
+    && sed -i '/3manager.org.apache.juli.FileHandler.encoding = UTF-8/i 3manager.org.apache.juli.FileHandler.maxDays = '${TOMCAT_LOGDAY} logging.properties \
+    && sed -i '/4host-manager.org.apache.juli.FileHandler.encoding = UTF-8/i 4host-manager.org.apache.juli.FileHandler.maxDays = '${TOMCAT_LOGDAY} logging.properties \
+    && sed -i 's/prefix="localhost_access_log."/prefix="localhost_access_log." maxDays="'${TOMCAT_LOGDAY}'"/g' server.xml
+
+COPY ./nbpms.war /usr/local/tomcat/webapps/ROOT.war
+
+VOLUME ["/usr/local/tomcat/logs", "/usr/local/tomcat/upload"]
+
+EXPOSE 8080
+
+CMD ["catalina.sh","run"]

@@ -1,0 +1,95 @@
+# Default values for the chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  java:
+    repository: jangwisu/app
+    tag: "1.0"
+  pullPolicy: Always
+
+
+service:
+  name: http
+  type: LoadBalancer
+  externalPort: 8080
+  internalPort: 8080
+  #nodePort:  30002
+  #extraName: 
+  #extraInternalPort: 
+  #extraExternalPort: 
+
+hostPort:
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - chart-example.local
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+env:
+  - name: jdbc.url
+    value: jdbc:mariadb://pet-mariadb:3306/petclinic?useUnicode=true
+
+volumes:
+  enabled: false
+
+extraVolumes: []
+  # - name: extra
+  #   emptyDir: {}
+
+extraVolumeMounts: []
+  # - name: extra
+  #   mountPath: /usr/local/tomcat/webapps/app
+  #   readOnly: true
+
+extraInitContainers: []
+  # - name: do-something
+  #   image: busybox
+  #   command: ['do', 'something']
+
+readinessProbe:
+  enabled: true
+  path: "/vets.html"
+  initialDelaySeconds: 10
+  periodSeconds: 60
+  failureThreshold: 5
+  timeoutSeconds: 10
+livenessProbe:
+  enabled: true
+  path: "/vets.html"
+  initialDelaySeconds: 10
+  periodSeconds: 60
+  failureThreshold: 5
+  timeoutSeconds: 10
+
+resources:
+ limits: # {}
+    cpu: 500m
+    memory: 512Mi
+ requests: # {}
+    cpu: 500m
+    memory: 512Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# HPA
+autoscaling: 
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50
+  targetMemoryUtilizationPercentage: 80

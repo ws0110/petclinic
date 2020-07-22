@@ -1,0 +1,27 @@
+# Pull base image
+From nginx:1.17.8-alpine     
+
+# Maintainer
+MAINTAINER SmartHaccp <smarthaccp@cj.net>
+
+# 타임존 설정 및 logrotate 설치
+RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
+    && echo "Asia/Seoul" > /etc/timezone \
+    && rm -v /etc/nginx/nginx.conf \
+    && apk add logrotate
+
+# 설정 복사 및 소스 복사
+COPY ./nginx.conf /etc/nginx/ 
+COPY ./app /etc/nginx/html/   
+
+# 필요 시 nginx-logrotate 설정
+ARG NGINX_LOG_ROTATE=60
+RUN sed -i 's/rotate 52/rotate '${NGINX_LOG_ROTATE}'/g' /etc/logrotate.d/nginx \
+    && sed -i 's/create 640 nginx adm/create 644 root root/g' /etc/logrotate.d/nginx
+
+# volume used to keep logs
+VOLUME ["/var/log/nginx"]
+
+EXPOSE 80
+
+CMD ( crond -b ) && /usr/sbin/nginx
