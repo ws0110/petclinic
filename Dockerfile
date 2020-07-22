@@ -3,7 +3,7 @@ FROM tomcat:9.0.30-jdk8-openjdk
 RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime \
     && echo "Asia/Seoul" > /etc/timezone
     
-COPY ./petclinic.war /usr/local/tomcat/webapps/ROOT.war
+COPY ./target/petclinic.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
