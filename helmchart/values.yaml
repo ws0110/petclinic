@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 2
 
 image:
   java:
@@ -37,8 +37,8 @@ ingress:
   #      - chart-example.local
 
 env:
-  - name: jdbc.url
-    value: jdbc:mariadb://pet-mariadb:3306/petclinic?useUnicode=true
+  #- name: jdbc.url
+  #  value: jdbc:mariadb://mariadb:3306/petclinic?useUnicode=true
 
 volumes:
   enabled: false
